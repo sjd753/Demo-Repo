@@ -1,10 +1,13 @@
 package com.ogma.demo.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -57,6 +60,27 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "You're offline", Toast.LENGTH_SHORT).show();
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_more) {
+            startActivity(new Intent(this, More.class)
+                    .putExtra(More.EXTRA_TEXT, "Coming from Main Activity"));
+            return true;
+        }
+
+        if (item.getItemId() == R.id.action_exit) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class DemoAdapter extends BaseAdapter {
